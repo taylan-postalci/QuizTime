@@ -1,0 +1,23 @@
+:root {
+    --light: #C1CFDA;
+    --blue: #20A4F3;
+    --aqua: #59F8E8;
+    --red: #941C2F;
+    --dark: #03191E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Calibri;
+}
+
+body {
+    background-color: var(--light);
+}
+
+header {
+    background-color: var(--dark);
+    color: var(--light);
+    padding: 2%;
+}
