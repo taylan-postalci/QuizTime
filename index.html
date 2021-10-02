@@ -6,78 +6,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Leet Trivia</title>
 </head>
 
 <body>
     <nav>
-        <h1>Leet Trivia</h1>
+        <div class="nav-wrapper">
+            <a class="brand-logo">Leet Trivia</a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="index.html"><i class="fas fa-home"></i></a></li>
+            </ul>
+          </div>
     </nav>
 
     <div class="container">
 
-        <div class="row">
-            <div class="col s12">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">Welcome to Leet Trivia</span>
-                        <p>Please select from one of the following categories.</p>
+        <section id="catPage">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">Welcome to Leet Trivia</span>
+                            <p>Please select from one of the following categories.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col s12">
-                <button class="btn" onclick="catSelector('1')">Geography</button>
-                <button class="btn" onclick="catSelector('2')">Science</button>
-                <button class="btn" onclick="catSelector('3')">History</button>
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn catBtn" onclick="catSelector('1')">General Knowledge</button>
+                    <button class="btn" onclick="catSelector('2')">Books</button>
+                    <button class="btn" onclick="catSelector('3')">Film</button>
+                    <button class="btn" onclick="catSelector('4')">Music</button>
+                    <button class="btn" onclick="catSelector('5')">Musicals & Theatres</button>
+                    <button class="btn" onclick="catSelector('6')">Television</button>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col s12">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <p>Please select from on of the following difficulties.</p>
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn" onclick="catSelector('7')">Video Games</button>
+                    <button class="btn" onclick="catSelector('8')">Board Games</button>
+                    <button class="btn" onclick="catSelector('9')">Science</button>
+                    <button class="btn" onclick="catSelector('10')">Computers</button>
+                    <button class="btn" onclick="catSelector('11')">Math</button>
+                    <button class="btn" onclick="catSelector('12')">Mythology</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn" onclick="catSelector('13')">Sports</button>
+                    <button class="btn" onclick="catSelector('14')">Geography</button>
+                    <button class="btn" onclick="catSelector('15')">History</button>
+                    <button class="btn" onclick="catSelector('16')">Politics</button>
+                    <button class="btn" onclick="catSelector('17')">Art</button>
+                    <button class="btn" onclick="catSelector('18')">Celebrities</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn" onclick="catSelector('19')">Animals</button>
+                    <button class="btn" onclick="catSelector('20')">Vehicles</button>
+                    <button class="btn" onclick="catSelector('21')">Comic Books</button>
+                    <button class="btn" onclick="catSelector('22')">Gadgets</button>
+                    <button class="btn" onclick="catSelector('23')">Anime & Manga</button>
+                    <button class="btn" onclick="catSelector('24')">Cartoon & Animation</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="diffPage" style="display:none">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <p>Please select from on of the following difficulties.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col s12">
-                <button class="btn" onclick="diffSelector('1')">Easy</button>
-                <button class="btn" onclick="diffSelector('2')">Medium</button>
-                <button class="btn" onclick="diffSelector('3')">Hard</button>
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn" onclick="diffSelector('1')">Easy</button>
+                    <button class="btn" onclick="diffSelector('2')">Medium</button>
+                    <button class="btn" onclick="diffSelector('3')">Hard</button>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="row">
-            <div class="col s12">
-                <button class="btn" id="startBtn">Start</button>
+        <section id="quizPage" style="display:none">
+            <div class="row">
+                <div class="col s12">
+                    <p id="question"></p>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col s12">
-                <p id="question">QUESTION</p>
+            <div class="row">
+                    <button class="btn" id="answer1" onclick="checkAnswer('1')"></button>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col s12">
-                <button class="btn" id="answer1" onclick="checkAnswer('1')">A</button>
-                <button class="btn" id="answer2" onclick="checkAnswer('2')">B</button>
-                <button class="btn" id="answer3" onclick="checkAnswer('3')">C</button>
-                <button class="btn" id="answer4" onclick="checkAnswer('4')">D</button>
+            <div class="row">
+                <button class="btn" id="answer2" onclick="checkAnswer('2')"></button>
             </div>
-        </div>
+            <div class="row">
+                <button class="btn" id="answer3" onclick="checkAnswer('3')"></button>
+            </div>
+            <div class="row">
+                <button class="btn" id="answer4" onclick="checkAnswer('4')"></button>
+            </div>
 
-        <footer>
-            <p>Score: <span id="scoreEl">0</span></p>
-        </footer>
+            <div class="row">
+                <p>Score: <span id="scoreEl">0</span></p>
+            </div>
+        </section>
+
+        <section id="errorPage" style="display:none">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">ERROR</span>
+                            <p>Sorry we do not have the Quiz you are looking for.<br>
+                            Please select from one of our other wonderful quiz!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn" id="errorhomeBtn">Go Home</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="finalPage" style="display:none">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">Good Job!</span>
+                            <p>You got a <span id="finalscoreEl"></span> out of 100!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

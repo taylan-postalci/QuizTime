@@ -1,4 +1,4 @@
-const startBtn = document.getElementById('startBtn');
+const errorhomeBtn = document.getElementById('errorhomeBtn');
 
 const questionEl = document.getElementById('question');
 const answer1 = document.getElementById('answer1');
@@ -7,55 +7,50 @@ const answer3 = document.getElementById('answer3');
 const answer4 = document.getElementById('answer4');
 
 const scoreEl = document.getElementById('scoreEl');
+const finalscoreEl = document.getElementById('finalscoreEl');
 
 
 var catNumber = 0;
-var diffNumber = 0;
+var diffSelect = '';
 var score = 0;
 var currentQuestion = 0;
 var questionCounter = 1;
 var correctAnswer = '';
+var questionArray = [];
 
 // Generates whats question the user will recive based on catefory and difficulty selected
 function generateQuiz() {
-    var apiUrl = ""
-    if (catNumber === 1 && diffNumber === 1) {
-        apiUrl = "https://opentdb.com/api.php?amount=10&category=22&difficulty=easy&type=multiple";
-    } else if (catNumber === 1 && diffNumber === 2) {
-        apiUrl = "https://opentdb.com/api.php?amount=10&category=22&difficulty=medium&type=multiple";
-    } else if (catNumber === 1 && diffNumber === 3) {
-        apiUrl = "https://opentdb.com/api.php?amount=10&category=22&difficulty=hard&type=multiple";
-    } else if (catNumber === 2 && diffNumber === 1) {
-        apiUrl = "https://opentdb.com/api.php?amount=10&category=17&difficulty=easy&type=multiple";
-    } else if (catNumber === 2 && diffNumber === 2) {
-        apiUrl = "https://opentdb.com/api.php?amount=10&category=17&difficulty=medium&type=multiple";
-    } else if (catNumber === 2 && diffNumber === 3) {
-        apiUrl = "https://opentdb.com/api.php?amount=10&category=17&difficulty=hard&type=multiple";
-    } else if (catNumber === 3 && diffNumber === 1) {
-        apiUrl = "https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple";
-    } else if (catNumber === 3 && diffNumber === 2) {
-        apiUrl = "https://opentdb.com/api.php?amount=10&category=23&difficulty=medium&type=multiple";
-    } else if (catNumber === 3 && diffNumber === 3) {
-        apiUrl = "https://opentdb.com/api.php?amount=10&category=23&difficulty=hard&type=multiple";
-    }
-
+    var apiUrl = "https://opentdb.com/api.php?amount=10&category=" + catNumber + "&difficulty=" + diffSelect + "&type=multiple"
     fetch(apiUrl)
     .then(function(response) {
       // request was successful
       if (response.ok) {
         console.log(response);
         response.json().then(function(data) {
-          console.log(data);
-          displayQuestion(data);
+
+            if (data.response_code === 1) {
+                console.log('ERROR MESSAGE');
+                document.getElementById("errorPage").style.display = "block";
+            } else {
+                console.log(data);
+                questionArray = data;
+                displayQuestion(questionArray);
+
+            }
         });
       }
     })
 };
 
 // Function to display question to user
-var displayQuestion = function(questions) {
-    const q = questions.results[currentQuestion];
+var displayQuestion = function() {
+    document.getElementById("quizPage").style.display = "block";
 
+    if (questionCounter > 10) {
+        setfinalScore();    
+    }
+    var q = questionArray.results[currentQuestion];
+  
     questionEl.innerHTML =  q.question;
         
     var questionOrder = Math.floor(Math.random() * (5));
@@ -89,10 +84,8 @@ var displayQuestion = function(questions) {
 
 // Function to check if user selected correct answer
 function checkAnswer(answer) {
-    console.log(answer);
-    console.log(correctAnswer);
     if (answer === correctAnswer) {
-        score++;
+        score=score+10;
         questionCounter++;
         setCounterText();
     } else {
@@ -108,23 +101,71 @@ function checkAnswer(answer) {
 // Category Selectory
 function catSelector(category) {
     if (category === '1') {
-        catNumber = 1;
+        catNumber = 9;
     } else if (category === '2') {
-        catNumber = 2;
+        catNumber = 10;
     } else if (category === '3') {
-        catNumber = 3;
+        catNumber = 11;
+    } else if (category === '4') {
+        catNumber = 12;
+    } else if (category === '5') {
+        catNumber = 13;
+    } else if (category === '6') {
+        catNumber = 14;
+    } else if (category === '7') {
+        catNumber = 15;
+    } else if (category === '8') {
+        catNumber = 16;
+    } else if (category === '9') {
+        catNumber = 17;
+    } else if (category === '10') {
+        catNumber = 18;
+    } else if (category === '11') {
+        catNumber = 19;
+    } else if (category === '12') {
+        catNumber = 20;
+    } else if (category === '13') {
+        catNumber = 21;
+    } else if (category === '14') {
+        catNumber = 22;
+    } else if (category === '15') {
+        catNumber = 23;
+    } else if (category === '16') {
+        catNumber = 24;
+    } else if (category === '17') {
+        catNumber = 25;
+    } else if (category === '18') {
+        catNumber = 26;
+    } else if (category === '19') {
+        catNumber = 27;
+    } else if (category === '20') {
+        catNumber = 28;
+    } else if (category === '21') {
+        catNumber = 29;
+    } else if (category === '22') {
+        catNumber = 30;
+    } else if (category === '23') {
+        catNumber = 31;
+    } else if (category === '24') {
+        catNumber = 32;
     }
+
+    document.getElementById("catPage").style.display = "none";
+    document.getElementById("diffPage").style.display = "block";
 }
 
 // Difficulty Selector
 function diffSelector(difficulty) {
     if (difficulty === '1') {
-        diffNumber = 1;
+        diffSelect = 'easy';
     } else if (difficulty === '2') {
-        diffNumber = 2;
+        diffSelect = 'medium';
     } else if (difficulty === '3') {
-        diffNumber = 3;
-    }
+        diffSelect = 'hard';
+    } 
+    document.getElementById("catPage").style.display = "none";
+    document.getElementById("diffPage").style.display = "none";
+    generateQuiz();
 }
 
 // Function to display score on screen
@@ -132,5 +173,12 @@ function setCounterText() {
     scoreEl.textContent = score;
 }
 
-// Button to start the Quiz
-startBtn.addEventListener("click", generateQuiz)
+function setfinalScore() {
+    finalscoreEl.textContent = score;
+    document.getElementById("quizPage").style.display = "none";
+    document.getElementById("finalPage").style.display = "block";
+}
+
+errorhomeBtn.onclick = function() {
+    location.reload();
+}
